@@ -13,7 +13,7 @@ jobs:
       # Required for the action to push back to the PR
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # A PAT is required to push to a branch created by another bot (Renovate)
           # and to ensure this commit triggers your tests/CD checks.
