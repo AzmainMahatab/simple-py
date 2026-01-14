@@ -23,7 +23,15 @@ jobs:
         run: hatch version minor
 
       - name: Commit Change Back to PR
+        id: auto-commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: bump python version to match cloudflared"
-          file_pattern: "src/pyflared/__about__.py"
+          file_pattern: "src/*/__about__.py"
+
+      # Add this step immediately after to FORCE failure if nothing happened
+      - name: Fail if no changes
+        if: steps.auto-commit.outputs.changes_detected == 'false'
+        run: |
+          echo "::error::No changes were detected! Either 'hatch version' failed to modify the file, or the file_pattern 'src/*/__about__.py' is incorrect."
+          exit 1
