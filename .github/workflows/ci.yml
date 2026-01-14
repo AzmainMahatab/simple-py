@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - 'cloudflared.version'
   workflow_dispatch:
 
 
@@ -29,11 +31,11 @@ jobs:
       - name: Run tests
         run: hatch test -- -s
 
-  build-on-arm:
-    runs-on: ubuntu-24.04-arm     # ← valid & recommended
-
-    steps:
-#      - uses: actions/checkout@v4
-#      -
-      - run: uname -m               # outputs: aarch64
-      - run: lsb_release -a         # shows Ubuntu 24.04 details
+#  build-on-arm:
+#    runs-on: ubuntu-24.04-arm     # ← valid & recommended
+#
+#    steps:
+#      #      - uses: actions/checkout@v4
+#      #      -
+#      - run: uname -m               # outputs: aarch64
+#      - run: lsb_release -a         # shows Ubuntu 24.04 details

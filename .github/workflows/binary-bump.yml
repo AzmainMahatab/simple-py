@@ -1,0 +1,34 @@
+name: Bump Version
+
+on:
+  # Trigger on Pull Requests that change the version file
+  pull_request:
+    paths:
+      - 'cloudflared.version'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      # Required for the action to push back to the PR
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # A PAT is required to push to a branch created by another bot (Renovate)
+          # and to ensure this commit triggers your tests/CD checks.
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          ref: ${{ github.head_ref }}
+
+      - uses: pypa/hatch@install
+
+      - name: Bump Version
+        # This modifies src/pyflared/__about__.py locally
+        run: hatch version minor
+
+      - name: Commit Change Back to PR
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: bump python version to match cloudflared [skip ci]"
+          file_pattern: "src/pyflared/__about__.py"
+          # This automatically uses the correct github-actions[bot] user/email

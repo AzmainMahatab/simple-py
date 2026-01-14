@@ -1,17 +1,37 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: [
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
     "config:base"
   ],
-  // "--- 1. AUTOMATION SETTINGS ---",
-  automerge: true,
-  platformAutomerge: true,
-  // "--- 2. STRICT SAFETY SETTINGS ---",
-  // "This replaces cascade script. If a PR is behind main, rebase it immediately.",
-  rebaseWhen: "behind-base-branch",
-  //: "--- 3. NOISE REDUCTION (Optional but Recommended) ---",
-  //: "Group all non-major updates (minor/patch) into one single PR per week.",
-  packageRules: [
+  // --- 1. AUTOMATION SETTINGS ---
+  // Enable automerge globally.
+  "automerge": true,
+  // Use the platform's native auto-merge (e.g., GitHub "Merge when ready") for speed.
+  "platformAutomerge": true,
+  // --- 2. STRICT SAFETY SETTINGS ---
+  // If a PR is behind the main, rebase it immediately.
+  "rebaseWhen": "behind-base-branch",
+  "stopUpdatingLabel": "renovate-stop",
+  // --- 3. CUSTOM MANAGERS ---
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^cloudflared\\.version$"
+      ],
+      "matchStrings": [
+        // Strict Pattern: Only matches if the content is exactly YYYY.M.D (e.g., 2024.1.5).
+        // Safely ignores 'latest', empty files, or garbage text.
+        "^(?<currentValue>\\d{4}\\.\\d+\\.\\d+)$"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "cloudflare/cloudflared",
+      "versioningTemplate": "loose"
+    }
+  ],
+  // --- 4. NOISE REDUCTION ---
+  // Group all non-major updates (minor/patch) into one single PR.
+  "packageRules": [
     {
       "matchUpdateTypes": [
         "minor",
