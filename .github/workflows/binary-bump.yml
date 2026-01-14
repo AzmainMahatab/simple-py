@@ -12,7 +12,7 @@ jobs:
       # strictly required for the bot to push
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Uses the default GITHUB_TOKEN automatically
           ref: ${{ github.head_ref }}
