@@ -20,4 +20,5 @@ jobs:
       - uses: autofix-ci/action@v1
         with:
           commit-message: "chore: bump python version"
+          fail-fast: false
 
