@@ -5,7 +5,9 @@ on:
       - main
     paths-ignore:
       - 'cloudflared.version'
-  workflow_dispatch:
+  workflow_dispatch: # UI button
+  workflow_call: # Make callable by other workflows
+
 
 
 jobs:
@@ -30,6 +32,13 @@ jobs:
 
       - name: Run tests
         run: hatch test -- -s
+
+  test-report:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All good!"
+
 
 #  build-on-arm:
 #    runs-on: ubuntu-24.04-arm     # ← valid & recommended
