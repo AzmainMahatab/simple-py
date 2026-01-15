@@ -35,3 +35,7 @@ jobs:
         run: |
           echo "::error::No changes were detected! Either 'hatch version' failed to modify the file, or the file_pattern 'src/*/__about__.py' is incorrect."
           exit 1
+
+  ci:
+    needs: bump-version
+    uses: ./.github/workflows/ci.yml
