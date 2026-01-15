@@ -2,6 +2,7 @@ name: autofix.ci # needed to securely identify the workflow
 
 on:
   pull_request:
+    types: [ opened ]
     paths:
       - 'cloudflared.version'
 
