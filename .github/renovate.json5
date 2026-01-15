@@ -12,6 +12,10 @@
   // If a PR is behind the main, rebase it immediately.
   "rebaseWhen": "behind-base-branch",
   "stopUpdatingLabel": "renovate-stop",
+  "gitIgnoredAuthors": [
+    //Allow edit by autofix-ci
+    "autofix-ci[bot]@users.noreply.github.com"
+  ],
   // --- 3. CUSTOM MANAGERS ---
   "customManagers": [
     {
