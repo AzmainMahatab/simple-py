@@ -27,6 +27,13 @@ jobs:
       # 1. Bring your code onto the runner
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          # If triggered by workflow_run, grab the commit that triggered it.
+          # Otherwise (e.g., normal PR), use the default behavior.
+          ref: ${{ github.event.workflow_run.head_sha || github.ref }}
+
+          # This ensures we pull from the fork/branch correctly if it's a PR from a fork
+          repository: ${{ github.event.workflow_run.head_repository.full_name || github.repository }}
 
       - name: Install Hatch
         uses: pypa/hatch@install
