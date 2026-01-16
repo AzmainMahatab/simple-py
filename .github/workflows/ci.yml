@@ -11,8 +11,6 @@ on:
     workflows: [ "Bump Version" ]
     types:
       - completed
-    branches: [ main ]
-
 
 
 
