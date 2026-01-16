@@ -1,22 +1,23 @@
-name: autofix.ci # needed to securely identify the workflow
-
-on:
-  pull_request:
-    paths:
-      - 'cloudflared.version'
-
-jobs:
-  bump-version:
-    runs-on: ubuntu-latest
-    permissions:
-      # strictly required for the bot to push
-      contents: write
-    steps:
-      - uses: actions/checkout@v6
-      - uses: pypa/hatch@install
-      - name: fmt
-        run: hatch fmt
-
-      - uses: autofix-ci/action@v1
-        with:
-          commit-message: "chore: bump python version"
+#name: autofix.ci # needed to securely identify the workflow
+#
+#on:
+#  pull_request:
+#    paths:
+#      - 'cloudflared.version'
+#
+#jobs:
+#  bump-version:
+#    runs-on: ubuntu-latest
+#    permissions:
+#      # strictly required for the bot to push
+#      contents: write
+#    steps:
+#      - uses: actions/checkout@v6
+#      - uses: pypa/hatch@install
+#      - name: fmt
+#        run: hatch fmt
+#
+#      - uses: autofix-ci/action@v1
+#        with:
+#          commit-message: "chore: bump python version"
+# Supressed for now

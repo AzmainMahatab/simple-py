@@ -7,6 +7,12 @@ on:
       - 'cloudflared.version'
   workflow_dispatch: # UI button
   workflow_call: # Make callable by other workflows
+  workflow_run: # Chain after another workflow
+    workflows: [ "Bump Version" ]
+    types:
+      - completed
+    branches: [ main ]
+
 
 
 
