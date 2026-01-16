@@ -7,7 +7,6 @@ on:
 
 jobs:
   bump-version:
-    if: github.actor != 'autofix-ci[bot]'
     runs-on: ubuntu-latest
     permissions:
       # strictly required for the bot to push
@@ -15,10 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: pypa/hatch@install
-      - name: Bump Version
-        run: hatch version minor
+      - name: fmt
+        run: hatch fmt
 
       - uses: autofix-ci/action@v1
         with:
           commit-message: "chore: bump python version"
-          fail-fast: false
